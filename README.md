@@ -11,7 +11,7 @@ go get https://github.com/tdegrunt/geocoder
 ```go
 gc, err := NewGeocoder()
 
-res, err = directions.Geocode("Rijksmuseum")
+res, err = gc.Geocode("Rijksmuseum")
 
 location := res.Results[0].Geometry.Location
 ```
