@@ -73,7 +73,7 @@ func (gc *Geocoder) SetClient(c string) {
 	gc.client = &c
 }
 
-// Sets the Private Key (or Crypto Key) for Enterprise accounts
+// Sets the Private Key (or Crypto Key) for Enterprise accounts, use the value as is from your Enterprise Support Portal
 func (gc *Geocoder) SetPrivateKey(pk string) {
 	gc.privateKey = &pk
 }
@@ -89,17 +89,15 @@ func (gc *Geocoder) GetFullUrl(v url.Values) (*string, error) {
 
 		pathToEncode := gc.path + "?" + v.Encode()
 
-		decodedKey, err := base64.StdEncoding.DecodeString(*gc.privateKey)
+		decodedKey, err := base64.URLEncoding.DecodeString(*gc.privateKey)
 		if err != nil {
 			return nil, err
 		}
 
-		sha := sha1.New
-		h := hmac.New(sha, []byte(decodedKey))
+		h := hmac.New(sha1.New, decodedKey)
 		h.Write([]byte(pathToEncode))
 
-		encoder := base64.StdEncoding
-		signature := encoder.EncodeToString(h.Sum(nil))
+		signature := base64.URLEncoding.EncodeToString(h.Sum(nil))
 
 		v.Add("signature", signature)
 	}

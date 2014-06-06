@@ -9,7 +9,7 @@ import (
 
 var _ = Describe("Geocoding", func() {
 	var (
-		gc *Geocoder
+		gc  *Geocoder
 		err error
 	)
 	BeforeEach(func() {
@@ -20,7 +20,7 @@ var _ = Describe("Geocoding", func() {
 		res, err := gc.Geocode("Rijksmuseum")
 		Expect(err).NotTo(HaveOccurred())
 		Expect(res.Status).To(Equal("OK"))
-		
+
 		bm, err := res.BestMatch()
 		Expect(err).NotTo(HaveOccurred())
 		Expect(bm.Geometry.Location.Latitude).To(Equal(52.3599976))
@@ -29,11 +29,11 @@ var _ = Describe("Geocoding", func() {
 	It("should geocode 'Rijksmuseum' with Enterprise key/client", func() {
 		gc.SetClient("yourclientidhere")
 		gc.SetPrivateKey("yourprivatekeyhere")
-		
+
 		res, err := gc.Geocode("Rijksmuseum")
 		Expect(err).NotTo(HaveOccurred())
 		Expect(res.Status).To(Equal("OK"))
-		
+
 		bm, err := res.BestMatch()
 		Expect(err).NotTo(HaveOccurred())
 		Expect(bm.Geometry.Location.Latitude).To(Equal(52.3599976))
