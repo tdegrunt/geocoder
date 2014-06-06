@@ -16,6 +16,14 @@ res, err = gc.Geocode("Rijksmuseum")
 location := res.Results[0].Geometry.Location
 ```
 
+## Tests
+
+Needs you client id and private key from the Enterprise Support Portal
+
+```go
+GM_CLIENT="gme-myclientid" GM_PK="xMlTUbRv6xQETRA57Y26AXmvM5Z=" ginkgo
+```
+
 ## License
 
     geocoder is licensed under MIT license.
